@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE BLACK LABEL — 팬덤앱 플랫폼 로드맵 2026</title>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface2: #1C1C1C;
+    --border: #2A2A2A;
+    --text: #F0F0F0;
+    --muted: #8A8A8A;
+    --ch-red: #A32020;
+    --green: #5DBF5D;
+    --blue-soft: #7090E0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; font-size: 14px; line-height: 1.65; }
+
+  .header { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid var(--border); }
+  .brand { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .title { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .subtitle { font-size: 13px; color: var(--muted); }
+
+  .nav { display: flex; justify-content: center; gap: 4px; padding: 16px 24px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .nav a { color: var(--muted); font-size: 12px; text-decoration: none; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); }
+  .nav a:hover { color: var(--gold); border-color: var(--gold); }
+
+  .main { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .sec-header { display: flex; align-items: center; gap: 12px; margin: 52px 0 24px; }
+  .sec-label { font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; white-space: nowrap; }
+  .sec-title { font-size: 19px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .sec-badge { font-size: 10px; padding: 3px 10px; border-radius: 12px; font-weight: 600; white-space: nowrap; }
+  .badge-done { background: #1A2E1A; color: var(--green); border: 1px solid #2E5C2E; }
+  .badge-plan { background: #1A1A2E; color: var(--blue-soft); border: 1px solid #2E2E5C; }
+  .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .card-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .kpi.ch { border-top: 3px solid var(--ch-red); }
+  .kpi.do { border-top: 3px solid #3A6FD8; }
+  .kpi-val { font-size: 28px; font-weight: 700; color: var(--gold); line-height: 1.1; margin-bottom: 6px; }
+  .kpi-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .kpi-delta { font-size: 12px; color: var(--green); font-weight: 600; }
+
+  .app-tag { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 10px; font-weight: 700; margin-bottom: 14px; letter-spacing: 1px; }
+  .app-ch { background: rgba(163,32,32,0.2); color: #E06060; border: 1px solid rgba(163,32,32,0.4); }
+  .app-do { background: rgba(58,111,216,0.2); color: var(--blue-soft); border: 1px solid rgba(58,111,216,0.4); }
+
+  .item-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; margin-bottom: 16px; }
+  .item-num { font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 2px; margin-bottom: 6px; }
+  .item-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .item-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .item-body { font-size: 13px; color: #C8C8C8; line-height: 1.85; }
+  .item-body p { margin-bottom: 10px; }
+  .item-body p:last-child { margin-bottom: 0; }
+
+  .data-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .data-row:last-child { border-bottom: none; }
+  .data-label { color: var(--muted); }
+  .data-val { color: var(--text); font-weight: 600; }
+  .data-val.gold { color: var(--gold); }
+  .data-val.up { color: var(--green); }
+
+  .bullet-list { list-style: none; }
+  .bullet-list li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); display: flex; gap: 8px; }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: "—"; color: var(--gold); flex-shrink: 0; }
+
+  .insight { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 13px 16px; margin-top: 14px; font-size: 12px; color: var(--muted); line-height: 1.75; }
+  .insight strong { color: var(--gold); }
+
+  /* COIN ENABLES */
+  .coin-block { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; margin-top: 16px; overflow: hidden; }
+  .coin-header { background: rgba(201,168,76,0.1); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 10px 16px; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+  .coin-enables { padding: 12px 16px; }
+  .coin-enables-label { font-size: 9px; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+  .coin-enables-item { font-size: 12px; color: #C8C8C8; padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .coin-enables-item:last-child { border-bottom: none; }
+  .coin-enables-item::before { content: "→"; color: var(--gold); flex-shrink: 0; font-size: 11px; }
+
+  .plan-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .plan-card-num { font-size: 32px; font-weight: 700; color: var(--border); line-height: 1; margin-bottom: 10px; }
+  .plan-card-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .plan-card-body { font-size: 12px; color: var(--muted); line-height: 1.75; }
+  .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); margin: 2px; }
+
+  .timeline { display: flex; overflow-x: auto; padding-bottom: 8px; }
+  .milestone { flex: 1; min-width: 200px; position: relative; padding-right: 16px; }
+  .milestone::after { content: ''; position: absolute; right: 0; top: 20px; width: 100%; height: 2px; background: var(--border); z-index: 0; }
+  .milestone:last-child::after { display: none; }
+  .ms-dot { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; position: relative; z-index: 1; margin-bottom: 12px; }
+  .ms-dot.done { background: rgba(201,168,76,0.15); border: 2px solid var(--gold); color: var(--gold); }
+  .ms-dot.active { background: var(--gold); border: 2px solid var(--gold); color: #000; }
+  .ms-dot.plan { background: rgba(112,144,224,0.1); border: 2px solid #3A5090; color: var(--blue-soft); }
+  .ms-period { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+  .ms-items { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .title { font-size: 20px; }
+    .timeline { flex-direction: column; }
+    .milestone::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">The Black Label</div>
+  <div class="title">팬덤앱 플랫폼 사업 현황 및 로드맵</div>
+  <div class="subtitle">Churrrrr × DAY OFF &nbsp;|&nbsp; 2026년 연간 계획 &nbsp;|&nbsp; 기준: 2026.06.23</div>
+</div>
+
+<div class="nav">
+  <a href="#q1">1분기 실적</a>
+  <a href="#q2">2분기 실적</a>
+  <a href="#q3">3분기 예정</a>
+  <a href="#q4">4분기 예정</a>
+  <a href="#milestone">마일스톤</a>
+</div>
+
+<div class="main">
+
+  <!-- ─── 1분기 ─── -->
+  <div id="q1">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">1Q 2026 · Jan – Mar</div>
+        <div class="sec-title">1분기 실적 <span class="sec-badge badge-done">완료</span></div>
+      </div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="item-block">
+      <div class="item-num">01</div>
+      <div class="item-title">MEOVV 팬덤플랫폼 'Churrrrr' 개인구독권 출시</div>
+      <div class="item-sub">2026.02.11 오픈 &nbsp;|&nbsp; 구독상품 다변화</div>
+
+      <div class="item-body">
+        <p>기존에는 5인권(9,900원) 단일 상품만 운영했으나, 2026년 2월 11일 개인 구독권 출시와 함께 5인권 가격을 24,000원으로 조정하고 1~4인권을 추가해 구독 상품을 다양화했습니다. 출시 당일 신규 구독자는 직전 일평균 대비 5.1배 증가했으며, 객단가는 2026년 2월 11일부터 3월 31일까지의 누적 기준으로 출시 이전 대비 약 1.25배 상승했습니다.</p>
+      </div>
+
+      <!-- Chart: dark theme -->
+      <div style="margin-top:20px;">
+        <div class="card-label">총 구독 수익 추이 (2026.02.11 출시 기준)</div>
+        <svg viewBox="0 0 320 195" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;margin-top:8px;">
+          <defs>
+            <marker id="arrD" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#C9A84C" opacity="0.8"/>
+            </marker>
+          </defs>
+          <!-- Baseline -->
+          <line x1="40" y1="148" x2="300" y2="148" stroke="#333" stroke-width="1"/>
+          <!-- Grid -->
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#252525" stroke-width="0.5" stroke-dasharray="4,3"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#252525" stroke-width="0.5" stroke-dasharray="4,3"/>
+          <!-- Bar 1: Before (5인권 단독) -->
+          <rect x="60" y="128" width="80" height="20" fill="#5C2E2E" opacity="0.8" rx="3 3 0 0"/>
+          <!-- Bar 2: Launch -->
+          <rect x="195" y="43" width="90" height="105" fill="#C9A84C" opacity="0.82" rx="3 3 0 0"/>
+          <!-- Arrow -->
+          <path d="M100,127 C148,82 165,58 193,44" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-dasharray="5,3" opacity="0.65" marker-end="url(#arrD)"/>
+          <!-- Annotation -->
+          <text x="148" y="62" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#C9A84C" font-weight="bold">총 구독 수익 ▲</text>
+          <text x="148" y="76" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#C9A84C" opacity="0.8">객단가 약 1.25배 상승</text>
+          <!-- Period dates -->
+          <text x="100" y="162" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#4A4A4A">~2026.02.10</text>
+          <text x="240" y="162" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#555">2026.02.11</text>
+          <!-- Bar names -->
+          <text x="100" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#666">출시 전</text>
+          <text x="240" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#888">개인권 출시</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 2분기 ─── -->
+  <div id="q2">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">2Q 2026 · Apr – Jun</div>
+        <div class="sec-title">2분기 실적 <span class="sec-badge badge-done">완료</span></div>
+      </div>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- Item 1: DAY OFF -->
+    <div class="item-block">
+      <div class="item-num">01</div>
+      <div class="item-title">ALLDAY PROJECT 팬덤플랫폼 'DAY OFF' 개인구독권 출시</div>
+      <div class="item-sub">2026.06.15 오픈 &nbsp;|&nbsp; 구독상품 다변화</div>
+
+      <div style="margin-bottom:16px;">
+        <div class="card-label">오픈 성과</div>
+        <div class="data-row"><span class="data-label">오픈 당일 신규구독자 (6/15)</span><span class="data-val up">직전 일평균 대비 8.4배 증가</span></div>
+
+        <div class="data-row"><span class="data-label">1주년 이벤트 DAU (6/23)</span><span class="data-val up">직전 7일 평균 대비 약 2.4배</span></div>
+        <div class="data-row"><span class="data-label">1주년 신규 회원 (6/23)</span><span class="data-val up">직전 7일 평균 대비 약 5.7배</span></div>
+      </div>
+    </div>
+
+    <!-- Item 2: 서버 전환 -->
+    <div class="item-block">
+      <div class="item-num">02</div>
+      <div class="item-title">Churrrrr 채팅 서버 전환 (Chat Planet)</div>
+      <div class="item-sub">2분기 완료 &nbsp;|&nbsp; 인프라 비용 절감</div>
+      <div class="item-body">
+        <p>Churrrrr 채팅 인프라를 Chat Planet 서버로 전환해 운영비용을 절감했습니다.</p>
+      </div>
+    </div>
+
+    <!-- Item 3: FREE-TRIAL -->
+    <div class="item-block">
+      <div class="item-num">03</div>
+      <div class="item-title">7일 무료 체험(Free Trial) 런칭</div>
+      <div class="item-sub">2분기 &nbsp;|&nbsp; 5인권 7일 무료 체험</div>
+
+      <div>
+        <div class="item-body" style="margin-bottom:14px;"><p>7일 무료 체험 기능 도입으로 구독 진입장벽을 낮춰 양 앱 모두 신규 유입과 구독자 수가 증가했습니다.</p></div>
+        <div class="app-tag app-ch">Churrrrr &nbsp;—&nbsp; 6/16 런칭</div>
+        <div class="data-row"><span class="data-label">기간 신규구독자 (6/16~6/23)</span><span class="data-val up">직전 일평균 대비 1.56배 증가</span></div>
+
+        <div class="app-tag app-do" style="margin-top:14px;">DAY OFF &nbsp;—&nbsp; 6/15 런칭</div>
+        <div class="data-row"><span class="data-label">기간 신규구독자 (6/16~6/23)</span><span class="data-val up">직전 일평균 대비 약 1.6배 증가</span></div>
+        <div class="data-row"><span class="data-label">개인구독권 오픈과 동시 런칭</span><span class="data-val">6/15~</span></div>
+
+        <p style="font-size:11px;color:#555;margin-top:14px;line-height:1.6;">* Free Trial: 결제 이력이 없는 유저가 7일간 무료로 구독 혜택을 체험하는 기간으로, 앱 구독에 대한 진입장벽을 낮춰줌</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3분기 ─── -->
+  <div id="q3">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">3Q 2026 · Jul – Sep</div>
+        <div class="sec-title">3분기 예정 <span class="sec-badge badge-plan">예정</span></div>
+      </div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="plan-card">
+        <div class="plan-card-num">01</div>
+        <div class="plan-card-title">DAY OFF 채팅 서버 전환 (Chat Planet)</div>
+        <div class="plan-card-body">Churrrrr 전환에 이어 DAY OFF 채팅 인프라도 Chat Planet 서버로 전환 예정. 추가 인프라 비용 절감 달성 목표.</div>
+        <div style="margin-top:12px;"><span class="tag">인프라 절감</span><span class="tag">Chat Planet</span></div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-card-num">02</div>
+        <div class="plan-card-title">온·오프라인 팬 경험 연결 — 이벤트 신청 기능 오픈</div>
+        <div class="plan-card-body">팬덤앱에서 공개방송 참여, 팝업스토어 예약, 팬 이벤트 신청을 직접 처리. 구독 경험이 오프라인 팬 활동까지 이어지는 통합 팬 접점을 구현.</div>
+        <div style="margin-top:12px;"><span class="tag">공개방송 신청</span><span class="tag">팝업 예약</span><span class="tag">온오프라인 연동</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 4분기 ─── -->
+  <div id="q4">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">4Q 2026 · Oct – Dec</div>
+        <div class="sec-title">4분기 예정 <span class="sec-badge badge-plan">예정</span></div>
+      </div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:14px 20px;margin-bottom:16px;font-size:13px;color:var(--muted);">
+      핵심 방향: <strong style="color:#fff;">THE BLACK COIN 웹 결제 인프라 구축</strong> → 이를 기반으로 다양한 결제 상품 출시
+    </div>
+
+    <div class="item-block" style="border-top:3px solid var(--gold);">
+      <div class="item-num">01</div>
+      <div class="item-title">THE BLACK COIN — 웹 결제 플랫폼</div>
+      <div class="item-sub">앱 마켓 수수료(~30%) 절감 &nbsp;|&nbsp; 독립 결제 인프라 확보</div>
+      <div class="item-body">
+        <p>웹 결제 기반을 구축해 앱 마켓 수수료를 절감합니다. THE BLACK COIN이 출시되면 친구 추천 할인, 연간권 등 다양한 결제 상품을 단계적으로 출시할 수 있습니다.</p>
+      </div>
+
+      <div class="coin-block">
+        <div class="coin-header">THE BLACK COIN 기반 출시 예정</div>
+        <div class="coin-enables">
+          <div class="coin-enables-label">ENABLES</div>
+          <div class="coin-enables-item">친구 추천 할인 금액권 — 팬덤 바이럴 유입 채널 생성</div>
+          <div class="coin-enables-item">연간권 출시 — 장기 구독 유도 및 Lock-in 효과</div>
+          <div class="coin-enables-item">결제 품목 다양화 — 디지털 MD, 이벤트 티켓 등</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 마일스톤 ─── -->
+  <div id="milestone">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">Timeline</div>
+        <div class="sec-title">마일스톤</div>
+      </div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="timeline">
+        <div class="milestone">
+          <div class="ms-dot done">1Q</div>
+          <div class="ms-period">2026.01–03</div>
+          <div class="ms-items">MEOVV 개인채팅 오픈<br>1~5인권 라인업</div>
+        </div>
+        <div class="milestone">
+          <div class="ms-dot done">2Q</div>
+          <div class="ms-period">2026.04–06</div>
+          <div class="ms-items">DAY OFF 개인채팅 오픈<br>Churrrrr 서버 전환<br>FREE-TRIAL 런칭</div>
+        </div>
+        <div class="milestone">
+          <div class="ms-dot active">3Q</div>
+          <div class="ms-period">2026.07–09</div>
+          <div class="ms-items">DAY OFF 서버 전환 예정<br>앱 내 이벤트 신청<br>(공개방송 · 팝업 예약)</div>
+        </div>
+        <div class="milestone">
+          <div class="ms-dot plan">4Q</div>
+          <div class="ms-period">2026.10–12</div>
+          <div class="ms-items">THE BLACK COIN 웹결제<br>친구 추천 할인 금액권<br>연간권 출시</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);">
+  THE BLACK LABEL &nbsp;|&nbsp; Fandom Platform Business &nbsp;|&nbsp; 2026 Roadmap &nbsp;|&nbsp; 기준: 2026.06.23
+</div>
+
+</body>
+</html>
